@@ -3,10 +3,12 @@ from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from pymongo import Connection
 
+#Database connections
 client = Connection()
 db = client.journalList
 collection = db.journal
 
+#this loop pull data
 for i in range(1,9):
 	url = "http://science.thomsonreuters.com/cgi-bin/jrnlst/jlresults.cgi?PC=K&mode=print&Page=" + str(i)
 	page = urlopen(url).read()
@@ -20,4 +22,3 @@ for i in range(1,9):
 				"jour" : jour
 			}
 			collection.update({"id":id}, entry, upsert=True)
-			#print id + " Oldu " + jour
